@@ -60,8 +60,8 @@ ODScontent *ODSelementFactory::generateContentXML(ODSfile& ioFile)
 		}
 		else
 		{
-			// TODO: improve warning with error string from above
-			qWarning("ODScontent::parse - Failed to parse file.");
+			QString sWarn = QString( "ODScontent::parse - Failed to parse file with error: " ).append( sError );
+			qWarning( sWarn.toLatin1() );
 		}
 
 		ioFile.closeContainerElement(pDevice);
