@@ -56,6 +56,8 @@ public:
 	/*ODSspreadsheet* sheet(const QString& sName);
 	TContainer sheets();*/
 
+	void doDetach();
+
 private:
 	QExplicitlySharedDataPointer<ODScontentData> m_pContentData;
 };

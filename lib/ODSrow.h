@@ -47,6 +47,7 @@ public:
 	~ODSrow();
 
 protected:
+	void doDetach();
 	//QExplicitlySharedDataPointer<ODSrowData> m_pRowData;
 	//virtual ODSprototypeRepeatable *clone();
 };

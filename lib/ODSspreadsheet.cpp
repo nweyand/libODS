@@ -75,5 +75,10 @@ std::vector<ODStable*> ODSspreadsheet::tables()
 	return vReturn;
 }
 
+void ODSspreadsheet::doDetach()
+{
+	//m_pSpreadsheetData.detach();
+}
+
 } // namespace ODSlib
 

@@ -58,6 +58,13 @@ ODSrow::~ODSrow()
 {
 }
 
+void ODSrow::doDetach()
+{
+	// m_pRowData.detach();
+	ODSprototypeContentRepeatable::doDetach();
+	ODSprototypeRepeatable::doDetach();
+}
+
 /*ODSprototypeRepeatable *ODSrow::clone()
 {
 	// create a deep copy of this node

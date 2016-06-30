@@ -65,6 +65,8 @@ protected:
 
 	virtual ODSprototypeXMLfamiliar *item(st pos);
 
+	void doDetach();
+
 private:
 	QExplicitlySharedDataPointer<ODSprototypeContentRepeatableData> m_pPCRData;
 };

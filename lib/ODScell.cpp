@@ -154,6 +154,12 @@ void ODScell::parse()
 	m_pPXFData->m_bValid = true;
 }
 
+void ODScell::doDetach()
+{
+	m_pCellData.detach();
+	ODSprototypeRepeatable::doDetach();
+}
+
 /*ODSprototypeRepeatable *ODScell::clone()
 {
 	// create a deep copy of this node

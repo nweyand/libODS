@@ -48,6 +48,7 @@ public:
 	std::vector<ODStable*> tables();
 
 protected:
+	void doDetach();
 	//QExplicitlySharedDataPointer<ODSspreadsheetData> m_pSpreadsheetData;
 };
 

@@ -118,7 +118,7 @@ ODSprototypeXMLfamiliar *ODSprototypeContentRepeatable::item(st pos)
 		Q_ASSERT( !key );
 		Q_ASSERT( !val );
 
-		//TContainer::iterator containerIt = m_pPXFData->m_vContainer.begin();
+		// TContainer::iterator containerIt = m_pPXFData->m_vContainer.begin();
 		st nPosFirstBiggerItem = 0;
 
 		for ( std::map<st,st>::const_iterator it = m_pPCRData->m_mPositions.begin();
@@ -158,10 +158,14 @@ ODSprototypeXMLfamiliar *ODSprototypeContentRepeatable::item(st pos)
 		// ODSprototypeRepeatable...
 		ODSprototypeRepeatable* pChild = dynamic_cast< ODSprototypeRepeatable* >( pRepeatedChild );
 
-
 		// TODO: Finish implementation
 		return NULL;
 	}
+}
+
+void ODSprototypeContentRepeatable::doDetach()
+{
+	m_pPCRData.detach();
 }
 
 } // namespace ODSlib

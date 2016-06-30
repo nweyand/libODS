@@ -56,6 +56,11 @@ QString ODScontent::toString()
 	return m_pContentData->m_oContentDocument.toString(-1);
 }
 
+void ODScontent::doDetach()
+{
+	m_pContentData.detach();
+}
+
 /*ODSspreadsheet *ODScontent::sheet(const QString &sName)
 {
 	for ( ST i = 0; i < m_vContainer.size(); ++i )

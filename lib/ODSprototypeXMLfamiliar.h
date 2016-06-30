@@ -79,6 +79,19 @@ protected:
 	virtual void doMagic(ODSprototypeXMLfamiliar *pNew);
 
 	/**
+	 * @brief detach detaches this instance from the shared data for editing etc.
+	 * Note: Obviously, detaching does absolutely nothing if this is (already) a single entry.
+	 */
+	void detach();
+
+	/**
+	 * @brief doDetach contains the detaching implementation for all subclasses. All subclasses must
+	 * implement this and uppon call assure that doDetach of their direct parent class(es) (with the
+	 * exception of ODSprototypeXMLfamiliar) is called.
+	 */
+	virtual void doDetach() = 0;
+
+	/**
 	 * @brief child allows to access a child of this node by its index.
 	 * @param pos
 	 * @return

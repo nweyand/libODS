@@ -90,6 +90,12 @@ void ODSprototypeXMLfamiliar::doMagic(ODSprototypeXMLfamiliar *pNew)
 	Q_UNUSED(pNew);
 }
 
+void ODSprototypeXMLfamiliar::detach()
+{
+	m_pPXFData.detach();
+	doDetach();
+}
+
 ODSprototypeXMLfamiliar *ODSprototypeXMLfamiliar::child(st pos)
 {
 	return m_pPXFData->m_vContainer.at(pos);

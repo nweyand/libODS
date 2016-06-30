@@ -33,6 +33,14 @@ namespace ODSlib
 {
 class ODSprototypeRepeatableData;
 
+/**
+ * @brief The ODSprototypeRepeatable class represents content that can be repeated in the ODS
+ * document XML structure. Typically, repeatable contents are things like identical consecutive
+ * cells and rows which are saved as a single XML entry instead of multiple ones.
+ *
+ * The best example of this are empty ODS files, where all cells and rows are identical and can
+ * therefore be reduced to one single row XML entry containing one single cell XML entry.
+ */
 class ODSprototypeRepeatable : virtual public ODSprototypeXMLfamiliar
 {
 protected:
@@ -54,14 +62,27 @@ public:
 
 	size_t multiplicity() const;
 
-	//ODSprototypeRepeatable *split(size_t afterN);
+	/**
+	 * @brief splitUpRepetition allows to cut up a repeted XML entry so that parts of it can be
+	 * edited without impacting the other parts.
+	 * @param afterN The number of consecutive repeated items before the item to be cut out of the
+	 * repetition.
+	 * @return The now editable item that was cut out.
+	 */
+	ODSprototypeRepeatable *splitUpRepetition(size_t afterN);
 
 protected:
 	//virtual ODSprototypeRepeatable *clone() = 0;
+	void doDetach();
 
 	QExplicitlySharedDataPointer<ODSprototypeRepeatableData> m_pPRData;
 
 private:
+	/**
+	 * @brief setMultiplicity Correctly sets the multiplicity both in this item and its asscoiated
+	 * XML entry.
+	 * @param multiplicity The number of consecutive repetitions of this item to be set.
+	 */
 	void setMultiplicity(const size_t &multiplicity);
 };
 

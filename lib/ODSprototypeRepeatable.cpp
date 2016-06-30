@@ -59,20 +59,24 @@ size_t ODSprototypeRepeatable::multiplicity() const
 	return m_pPRData->m_nMultiplicity;
 }
 
-/*ODSprototypeRepeatable *ODSprototypeRepeatable::split(size_t afterN)
+void ODSprototypeRepeatable::doDetach()
 {
-	ODSprototypeRepeatable *pSplit = NULL;
+	m_pPRData.detach();
+}
 
+ODSprototypeRepeatable *ODSprototypeRepeatable::splitUpRepetition(size_t afterN)
+{
 	if ( afterN > 0 && afterN < m_pPRData->m_nMultiplicity )
 	{
-		pSplit = clone();
-		pSplit->setMultiplicity( m_pPRData->m_nMultiplicity - afterN );
+
+
+		// TODO: continue here (detach)
 
 		setMultiplicity( afterN );
 	}
 
-	return pSplit;
-}*/
+	return this;
+}
 
 void ODSprototypeRepeatable::setMultiplicity(const size_t &multiplicity)
 {

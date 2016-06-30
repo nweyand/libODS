@@ -47,8 +47,11 @@ private:
 public:
 	virtual ~ODStable();
 
+protected:
 	virtual void parse();
+	void doDetach();
 
+public:
 	const QString& name() const;
 	void setName(const QString &name);
 
