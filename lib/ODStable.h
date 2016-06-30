@@ -58,6 +58,7 @@ public:
 	static QString coordinatesToString(st y, st x);
 	static void stringToCoordinates(QString s, st &y, st &x);
 
+	// TODO: Implement differentiated read/write access
 	ODScell *cell(QString pos);
 	ODScell *cell(st y, st x);
 
