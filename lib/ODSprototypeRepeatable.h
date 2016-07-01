@@ -65,11 +65,11 @@ public:
 	/**
 	 * @brief splitUpRepetition allows to cut up a repeted XML entry so that parts of it can be
 	 * edited without impacting the other parts.
-	 * @param afterN The number of consecutive repeated items before the item to be cut out of the
-	 * repetition.
-	 * @return The now editable item that was cut out.
+	 * @param target The target item to be cut out.
+	 * @return The now editable item that was cut out under the precondition of a valid input;
+	 * else: NULL
 	 */
-	ODSprototypeRepeatable *splitUpRepetition(size_t afterN);
+	ODSprototypeRepeatable *splitUpRepetition(size_t target);
 
 protected:
 	//virtual ODSprototypeRepeatable *clone() = 0;

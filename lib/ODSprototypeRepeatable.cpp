@@ -64,18 +64,29 @@ void ODSprototypeRepeatable::doDetach()
 	m_pPRData.detach();
 }
 
-ODSprototypeRepeatable *ODSprototypeRepeatable::splitUpRepetition(size_t afterN)
+ODSprototypeRepeatable *ODSprototypeRepeatable::splitUpRepetition(size_t target)
 {
-	if ( afterN > 0 && afterN < m_pPRData->m_nMultiplicity )
+	if ( target > 0 && target < m_pPRData->m_nMultiplicity )
 	{
+		if ( target > 1 ) // create new item before this one
+		{
+			// TODO: continue here
+		}
 
+		if ( target + 1 != m_pPRData->m_nMultiplicity ) // create new item after this one
+		{
+			// TODO: continue here
+		}
 
-		// TODO: continue here (detach)
+		detach();
+		setMultiplicity( 1 );
 
-		setMultiplicity( afterN );
+		// TODO: Optimize. Mulitiplicity should not be part of shared data.
+
+		return NULL; //this;
 	}
 
-	return this;
+	return NULL;
 }
 
 void ODSprototypeRepeatable::setMultiplicity(const size_t &multiplicity)

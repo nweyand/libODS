@@ -58,21 +58,23 @@ ODSprototypeContentRepeatable::~ODSprototypeContentRepeatable()
 
 void ODSprototypeContentRepeatable::doMagic(ODSprototypeXMLfamiliar *pNew)
 {
-	// remember the current position for faster lookup
+	// Remember the current position for faster lookup. This allows to look up items by their real
+	// position in order to allow fast access to their XML storage position.
 	m_pPCRData->m_mPositions[m_pPCRData->m_nParseCounter] = m_pPXFData->m_vContainer.size();
 
-	// keep track of pos counter incrementation
-	const QDomElement row = pNew->m_pPXFData->m_oAssociated;
-	if ( row.hasAttribute( m_pPCRData->m_sRepeatFilter ) )
+	// keep track of parse counter incrementation (counts the number of „real“ items as oppesed to
+	// the number of XML entries).
+	const QDomElement repeatableXML = pNew->m_pPXFData->m_oAssociated;
+	if ( repeatableXML.hasAttribute( m_pPCRData->m_sRepeatFilter ) )
 	{
 		bool bOK;
-		const unsigned int nRepetitions = row.attribute( m_pPCRData->m_sRepeatFilter ).toUInt(&bOK);
+		const unsigned int nRepetitions = repeatableXML.attribute( m_pPCRData->m_sRepeatFilter ).toUInt(&bOK);
 
 		if ( bOK )
 		{
 			m_pPCRData->m_nParseCounter += nRepetitions;
 		}
-		else // handle the cell as not repeated in case of error
+		else // handle the xml item as not repeated in case of error
 		{
 			++(m_pPCRData->m_nParseCounter);
 		}
@@ -118,7 +120,6 @@ ODSprototypeXMLfamiliar *ODSprototypeContentRepeatable::item(st pos)
 		Q_ASSERT( !key );
 		Q_ASSERT( !val );
 
-		// TContainer::iterator containerIt = m_pPXFData->m_vContainer.begin();
 		st nPosFirstBiggerItem = 0;
 
 		for ( std::map<st,st>::const_iterator it = m_pPCRData->m_mPositions.begin();
@@ -130,7 +131,6 @@ ODSprototypeXMLfamiliar *ODSprototypeContentRepeatable::item(st pos)
 				val = (*it).second;
 
 				// always points to the position after the last item with a smaller position
-				//++containerIt;
 				++nPosFirstBiggerItem;
 			}
 			else
@@ -146,20 +146,28 @@ ODSprototypeXMLfamiliar *ODSprototypeContentRepeatable::item(st pos)
 		Q_ASSERT( nPosFirstBiggerItem );
 
 		// Now we are at the child item whose repetition is what we are looking for.
-		--nPosFirstBiggerItem;
+		const st nPosTarget = nPosFirstBiggerItem - 1;
 
 		// This should be guaranteed anyway.
-		Q_ASSERT( nPosFirstBiggerItem < m_pPXFData->m_vContainer.size() );
+		Q_ASSERT( nPosTarget < m_pPXFData->m_vContainer.size() );
 
-		// OK, we know now which element to split...
-		ODSprototypeXMLfamiliar* pRepeatedChild = m_pPXFData->m_vContainer[nPosFirstBiggerItem];
+		// OK, we know now which element to split up...
+		ODSprototypeXMLfamiliar* pRepeatedChild = m_pPXFData->m_vContainer[nPosTarget];
 
 		// ...and we also know that all children stored in ODSprototypeContentRepeatable's are
 		// ODSprototypeRepeatable...
 		ODSprototypeRepeatable* pChild = dynamic_cast< ODSprototypeRepeatable* >( pRepeatedChild );
 
-		// TODO: Finish implementation
-		return NULL;
+		// calculate the target position for extration abong the repeated items
+		const st nRealCellPos = key;
+		const st nDeltaSplit  = pos - nRealCellPos;
+
+		Q_ASSERT( pos > nRealCellPos );
+
+		// cut out the target child for later external editing
+		ODSprototypeRepeatable* pExtract = pChild->splitUpRepetition( nDeltaSplit );
+
+		return pExtract;
 	}
 }
 

@@ -34,6 +34,11 @@ class ODSprototypeContentRepeatableData : public QSharedData
 {
 public:
 	const QString m_sRepeatFilter;
+
+	/**
+	 * @brief m_nParseCounter keeps track of the number of real items. This includes repeated items,
+	 * each multiplied by the number of their repetitions.
+	 */
 	unsigned int m_nParseCounter;
 	std::map<st,st> m_mPositions;
 
